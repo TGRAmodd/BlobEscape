@@ -21,20 +21,10 @@ public class LabFirst3DGame extends ApplicationAdapter {
 	private float fov = 100.0f;
 	
 	private Maze maze;
-	
-	private Sound sound;
-	private Sound winSong;
-	private boolean win;
-	private long winTrack;
-	private long track;
-	private float volume;
 
 	@Override
 	public void create () 
 	{
-		win = true;
-		volume = 1;
-		
 		shader = new Shader();
 		maze = new Maze(15, 15);
 
@@ -57,22 +47,11 @@ public class LabFirst3DGame extends ApplicationAdapter {
 		orthoCam.orthographicProjection(-10, 10, -10, 10, 3.0f, 100);
 		
 		Gdx.input.setCursorCatched(true);
-		sound = Gdx.audio.newSound(Gdx.files.internal("hall.mp3"));
-		winSong = Gdx.audio.newSound(Gdx.files.internal("celebrate.mp3"));
-		track = sound.play(1);
 	}
 	
 	private void update()
 	{
 		float deltaTime = Gdx.graphics.getDeltaTime();
-		
-		/* If we have reached the area where the z coord is less than -13 then we have reached 
-		 * our end goal, quit playing our stressful music and start playing celebratory music */
-		if(cam.eye.z < -13 && win){
-			win = false;
-			sound.dispose();
-			winTrack = winSong.play(1);
-		}
 		
 		angle += 180.0f * deltaTime;
 		
@@ -88,23 +67,6 @@ public class LabFirst3DGame extends ApplicationAdapter {
 		if(Gdx.input.isKeyPressed(Input.Keys.S)) {
 			cam.walkForward(-3.0f * deltaTime);
 		}
-		
-		/* Mute functionality */
-		if(Gdx.input.isKeyJustPressed(Input.Keys.M)) {
-			if(volume == 1){
-				volume = 0;
-			}
-			else{
-				volume = 1;
-			}
-			if(win){
-				sound.setVolume(track, volume);
-			}
-			else{
-				winSong.setVolume(winTrack, volume);
-			}
-		}
-		
 		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 			cam.rotateY(90.0f * deltaTime);
 		}
@@ -120,11 +82,6 @@ public class LabFirst3DGame extends ApplicationAdapter {
 		
 		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
 			Gdx.graphics.setDisplayMode(500, 500, false);
-			if(!win){
-				winSong.dispose();
-			}else{
-				sound.dispose();
-			}
 			Gdx.app.exit();
 		}
 		
