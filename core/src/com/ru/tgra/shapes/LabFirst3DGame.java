@@ -208,26 +208,6 @@ public class LabFirst3DGame extends ApplicationAdapter {
 	 * and two other spheres.
 	 */
 	public void drawExtraObjects() {
-		//draw collidable object
-		ModelMatrix.main.pushMatrix();
-		ModelMatrix.main.addTranslation(7.5f, 1, -16.0f);
-
-		ModelMatrix.main.addScale(0.5f, 9f, 0.5f);
-		objectRotationAngle += 45 * Gdx.graphics.getDeltaTime();
-		ModelMatrix.main.addRotationY(objectRotationAngle);
-		shader.setModelMatrix(ModelMatrix.main.getMatrix());
-		BoxGraphic.drawSolidCube();
-		ModelMatrix.main.popMatrix();
-		
-		ModelMatrix.main.pushMatrix();
-		ModelMatrix.main.addTranslation(7.5f, 4, -16.0f);
-		objectRotationAngle += 45 * Gdx.graphics.getDeltaTime();
-		ModelMatrix.main.addRotationY(objectRotationAngle);
-		ModelMatrix.main.addScale(0.5f, 0.5f, 3f);
-		shader.setModelMatrix(ModelMatrix.main.getMatrix());
-		BoxGraphic.drawSolidCube();
-		ModelMatrix.main.popMatrix();
-		
 		//draw floating objects
 		ModelMatrix.main.pushMatrix();
 		ModelMatrix.main.addTranslation(7.5f, 10.0f, -14.0f);
